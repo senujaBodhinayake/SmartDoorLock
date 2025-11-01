@@ -58,7 +58,7 @@ const Permissions = () => {
     const { error } = await permissionsApi.setKeyPermissions(
       selectedKey,
       selectedDoors,
-      'admin' // Replace with actual user context
+      'admin' 
     );
 
     if (error) {
