@@ -216,9 +216,30 @@ export const usersApi = {
   delete: (id: number) => apiRequest(`/api/users/${id}`, { method: 'DELETE' }),
 };
 
+// // Doors API
+// export const doorsApi = {
+//   getAll: () => apiRequest<any[]>('/api/doors'),
+//   create: (data: any) =>
+//     apiRequest('/api/doors', {
+//       method: 'POST',
+//       body: JSON.stringify({ 
+//         name: data.name, 
+//         location: data.location, 
+//         deviceIP: data.deviceIP 
+//       }),
+//     }),
+//   updateStatus: (id: string, status: string) =>
+//     apiRequest(`/api/doors/${id}/status`, {
+//       method: 'PUT',
+//       body: JSON.stringify({ status }),
+//     }),
+//   delete: (id: string) => apiRequest(`/api/doors/${id}`, { method: 'DELETE' }),
+// };
+
 // Doors API
 export const doorsApi = {
   getAll: () => apiRequest<any[]>('/api/doors'),
+  
   create: (data: any) =>
     apiRequest('/api/doors', {
       method: 'POST',
@@ -228,13 +249,27 @@ export const doorsApi = {
         deviceIP: data.deviceIP 
       }),
     }),
+
+
+  update: (id: string, data: any) =>
+    apiRequest(`/api/doors/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        name: data.name,
+        location: data.location,
+        deviceIP: data.deviceIP,
+      }),
+    }),
+
   updateStatus: (id: string, status: string) =>
     apiRequest(`/api/doors/${id}/status`, {
       method: 'PUT',
       body: JSON.stringify({ status }),
     }),
+
   delete: (id: string) => apiRequest(`/api/doors/${id}`, { method: 'DELETE' }),
 };
+
 
 
 // Keys API
@@ -246,15 +281,38 @@ export const keysApi = {
 };
 
 
-// Permissions API
+// //  Permissions API
+// export const permissionsApi = {
+//   getKeyPermissions: (keyId: string) => apiRequest<any[]>(`/api/permissions/${keyId}`),
+
+//   setKeyPermissions: (keyId: string, doors: number[]) =>
+//     apiRequest('/api/permissions', {
+//       method: 'POST',
+//       body: JSON.stringify({
+//         key_id: keyId,   
+//         door_ids: doors  
+//       }),
+//     }),
+// };
+
+//  FIXED Permissions API
 export const permissionsApi = {
   getKeyPermissions: (keyId: string) => apiRequest<any[]>(`/api/permissions/${keyId}`),
-  setKeyPermissions: (keyId: string, doors: number[], updatedBy: string) =>
+
+  setKeyPermissions: (keyId: string, doors: number[], role = "operator") =>
     apiRequest('/api/permissions', {
       method: 'POST',
-      body: JSON.stringify({ keyId, doors, updatedBy }),
+      body: JSON.stringify({
+        keyId: keyId,   
+        doors: doors,   
+        role: role      
+      }),
     }),
 };
+
+
+
+
 
 
 // Device API
